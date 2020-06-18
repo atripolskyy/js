@@ -9,21 +9,21 @@ const menu = {
     return this._courses.appetizers;
   },
   set appetizers(appetizerIn) {
-    this._courses.appetizers.push(appetizerIn);
+
   },
 
   get mains() {
     return this._courses.mains;
   },
   set mains(mainIn) {
-    this._courses.mains.push(mainIn);
+
   },
 
   get desserts() {
     return this._courses.desserts;
   },
   set desserts(dessertIn) {
-    this._courses.desserts.push(dessertIn);
+
   },
 
   get courses() {
@@ -31,7 +31,7 @@ const menu = {
       appetizers: this.appetizers,
       mains: this.mains,
       desserts: this.desserts,
-    }
+    };
   },
 
   addDishToCourse(courseName, dishName, dishPrice) {
@@ -39,38 +39,38 @@ const menu = {
       name: dishName,
       price: dishPrice,
     };
-
-    this[courseName] = dish;
+    this._courses[courseName].push(dish); // also try using your setter method!
   },
 
   getRandomDishFromCourse(courseName) {
-    const dishes = this[courseName];
+    const dishes = this._courses[courseName];
     const randomIndex = Math.floor(Math.random() * dishes.length);
 
     return dishes[randomIndex];
   },
 
   generateRandomMeal() {
-    const appetizer = this.getRandomDishFromCourse('appetizer');
-    const main = this.getRandomDishFromCourse('main');
-    const dessert = this.getRandomDishFromCourse('dessert');
+    const appetizer = this.getRandomDishFromCourse('appetizers');
+    const main = this.getRandomDishFromCourse('mains');
+    const dessert = this.getRandomDishFromCourse('desserts');
+
     const totalPrice = appetizer.price + main.price + dessert.price;
 
     return `Your meal is ${appetizer.name}, ${main.name}, ${dessert.name}. The price is ${totalPrice}.`;
-  }
+  },
 };
 
-menu.addDishToCourse('appetizer', 'Salad', 10);
-menu.addDishToCourse('appetizer', 'Sausage Cheese Balls', 35);
-menu.addDishToCourse('appetizer', 'Fried Mozzarella Puffs', 50);
+menu.addDishToCourse('appetizers', 'Salad', 10);
+menu.addDishToCourse('appetizers', 'Sausage Cheese Balls', 35);
+menu.addDishToCourse('appetizers', 'Fried Mozzarella Puffs', 50);
 
-menu.addDishToCourse('main', 'Lobster Lasagna', 60);
-menu.addDishToCourse('main', 'Mainely Fish', 45);
-menu.addDishToCourse('main', 'Maine Venison Stew', 22);
+menu.addDishToCourse('mains', 'Lobster Lasagna', 60);
+menu.addDishToCourse('mains', 'Mainely Fish', 45);
+menu.addDishToCourse('mains', 'Maine Venison Stew', 22);
 
-menu.addDishToCourse('dessert', 'Cake', 5);
-menu.addDishToCourse('dessert', 'Dessert Crepes', 25);
-menu.addDishToCourse('dessert', 'Chocolate Eclair Dessert', 27);
+menu.addDishToCourse('desserts', 'Cake', 5);
+menu.addDishToCourse('desserts', 'Dessert Crepes', 25);
+menu.addDishToCourse('desserts', 'Chocolate Eclair Dessert', 27);
 
 const meal = menu.generateRandomMeal();
 console.log(meal);
